@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StepUp – Premium Footwear</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- HEADER / NAVBAR -->
+<header class="site-header sticky-top">
+  <div class="header-top py-1">
+    <div class="container-fluid px-4 d-flex align-items-center justify-content-between">
+      <!-- Logo -->
+      <a href="#" class="brand-logo" onclick="showPage('home')">
+        <span class="logo-icon"><i class="fas fa-shoe-prints"></i></span>
+        <span class="logo-text">Step<span>Up</span></span>
+      </a>
+
+      <!-- Search Bar -->
+      <div class="search-bar flex-grow-1 mx-4">
+        <div class="input-group">
+          <select class="form-select category-select" id="searchCategory">
+            <option>All</option>
+            <option>Men</option>
+            <option>Women</option>
+            <option>Kids</option>
+            <option>Sports</option>
+          </select>
+          <input type="text" class="form-control" id="searchInput" placeholder="Search for shoes, brands..." />
+          <button class="btn btn-search" onclick="handleSearch()"><i class="fas fa-search"></i></button>
+        </div>
+      </div>
+
+      <!-- Nav Icons -->
+      <div class="header-icons d-flex align-items-center gap-3">
+        <div class="nav-icon-btn d-none d-md-flex flex-column align-items-center" onclick="showPage('home')">
+          <small>Hello, Sign in</small>
+          <strong>Account &amp; Lists <i class="fas fa-caret-down"></i></strong>
+        </div>
+        <div class="nav-icon-btn d-none d-md-flex flex-column align-items-center" onclick="showPage('orders')">
+          <small>Returns</small>
+          <strong>&amp; Orders</strong>
+        </div>
+        <div class="cart-btn nav-icon-btn" onclick="showPage('cart')">
+          <div class="cart-icon-wrap">
+            <i class="fas fa-shopping-cart fa-lg"></i>
+            <span class="cart-badge" id="cartCount">0</span>
+          </div>
+          <strong class="d-none d-md-inline">Cart</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Nav Bar -->
+  <nav class="header-nav">
+    <div class="container-fluid px-4">
+      <ul class="nav-links d-flex align-items-center gap-0 flex-wrap">
+        <li><a href="#" onclick="filterCategory('all')"><i class="fas fa-bars me-1"></i>All</a></li>
+        <li><a href="#" onclick="filterCategory('men')">Men's Shoes</a></li>
+        <li><a href="#" onclick="filterCategory('women')">Women's Shoes</a></li>
+        <li><a href="#" onclick="filterCategory('kids')">Kids</a></li>
+        <li><a href="#" onclick="filterCategory('sports')">Sports</a></li>
+        <li><a href="#" onclick="filterCategory('formal')">Formal</a></li>
+        <li><a href="#" onclick="filterCategory('casual')">Casual</a></li>
+        <li><a href="#" class="deal-link">Today's Deals</a></li>
+        <li><a href="#" class="deal-link">New Arrivals</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<!-- PAGES CONTAINER -->
+<main id="app">
+
+  <!-- ======== HOME PAGE ======== -->
+  <div id="page-home" class="page active">
+
+    <!-- Hero Carousel -->
+    <div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="hero-slide hero-slide-1">
+            <div class="hero-content">
+              <span class="hero-tag">New Collection 2025</span>
+              <h1>Step Into<br/><span>Excellence</span></h1>
+              <p>Discover premium footwear crafted for every journey</p>
+              <button class="btn btn-hero" onclick="filterCategory('all')">Shop Now <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="hero-slide hero-slide-2">
+            <div class="hero-content">
+              <span class="hero-tag">Limited Edition</span>
+              <h1>Sports<br/><span>Performance</span></h1>
+              <p>Push your limits with cutting-edge athletic footwear</p>
+              <button class="btn btn-hero" onclick="filterCategory('sports')">Explore Sports <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="hero-slide hero-slide-3">
+            <div class="hero-content">
+              <span class="hero-tag">Up to 40% Off</span>
+              <h1>Seasonal<br/><span>Sale</span></h1>
+              <p>Grab the best deals before they're gone</p>
+              <button class="btn btn-hero" onclick="filterCategory('casual')">Shop Sale <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- Category Cards -->
+    <section class="section-pad">
+      <div class="container-fluid px-4">
+        <div class="row g-3">
+          <div class="col-6 col-md-3">
+            <div class="category-card" onclick="filterCategory('men')">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop" alt="Men's Shoes" />
+              <div class="category-overlay"><h5>Men's Shoes</h5><span>Shop Now →</span></div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="category-card" onclick="filterCategory('women')">
+              <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=300&fit=crop" alt="Women's Shoes" />
+              <div class="category-overlay"><h5>Women's Shoes</h5><span>Shop Now →</span></div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="category-card" onclick="filterCategory('sports')">
+              <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&h=300&fit=crop" alt="Sports" />
+              <div class="category-overlay"><h5>Sports</h5><span>Shop Now →</span></div>
+            </div>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="category-card" onclick="filterCategory('kids')">
+              <img src="https://images.unsplash.com/photo-1518002171953-a080ee817e1f?w=400&h=300&fit=crop" alt="Kids" />
+              <div class="category-overlay"><h5>Kids</h5><span>Shop Now →</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section-pad bg-light-alt">
+      <div class="container-fluid px-4">
+        <div class="section-header">
+          <h2 class="section-title">Featured Products</h2>
+          <a href="#" class="see-all" onclick="filterCategory('all')">See all <i class="fas fa-chevron-right"></i></a>
+        </div>
+        <div class="row g-3" id="featuredProducts"></div>
+      </div>
+    </section>
+
+    <!-- Deal of the Day Banner -->
+    <section class="deal-banner section-pad">
+      <div class="container-fluid px-4">
+        <div class="deal-inner">
+          <div class="deal-text">
+            <span class="deal-tag">Deal of the Day</span>
+            <h2>Up to <span>40% Off</span> on Sports Collection</h2>
+            <p>Limited time offer. While stocks last.</p>
+            <div class="countdown" id="countdown">
+              <div class="count-block"><span id="hours">08</span><small>Hours</small></div>
+              <div class="count-sep">:</div>
+              <div class="count-block"><span id="minutes">45</span><small>Minutes</small></div>
+              <div class="count-sep">:</div>
+              <div class="count-block"><span id="seconds">30</span><small>Seconds</small></div>
+            </div>
+            <button class="btn btn-deal" onclick="filterCategory('sports')">Shop the Deal</button>
+          </div>
+          <div class="deal-img">
+            <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=500&h=400&fit=crop" alt="Deal Shoe" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- All Products -->
+    <section class="section-pad">
+      <div class="container-fluid px-4">
+        <div class="section-header">
+          <h2 class="section-title">All Products</h2>
+          <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" onclick="filterCategory('all')">All</button>
+            <button class="filter-tab" onclick="filterCategory('men')">Men</button>
+            <button class="filter-tab" onclick="filterCategory('women')">Women</button>
+            <button class="filter-tab" onclick="filterCategory('sports')">Sports</button>
+            <button class="filter-tab" onclick="filterCategory('kids')">Kids</button>
+            <button class="filter-tab" onclick="filterCategory('formal')">Formal</button>
+            <button class="filter-tab" onclick="filterCategory('casual')">Casual</button>
+          </div>
+        </div>
+        <div class="row g-3" id="allProducts"></div>
+      </div>
+    </section>
+
+    <!-- Brands -->
+    <section class="brands-section section-pad">
+      <div class="container-fluid px-4">
+        <h2 class="section-title text-center mb-4">Top Brands</h2>
+        <div class="brands-scroll d-flex gap-4 justify-content-center flex-wrap">
+          <div class="brand-chip">Nike</div>
+          <div class="brand-chip">Adidas</div>
+          <div class="brand-chip">Puma</div>
+          <div class="brand-chip">Reebok</div>
+          <div class="brand-chip">New Balance</div>
+          <div class="brand-chip">Converse</div>
+          <div class="brand-chip">Vans</div>
+          <div class="brand-chip">Skechers</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======== PRODUCT DETAIL PAGE ======== -->
+  <div id="page-product" class="page">
+    <div class="container-fluid px-4 py-4">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb" id="breadcrumb">
+          <li class="breadcrumb-item"><a href="#" onclick="showPage('home')">Home</a></li>
+          <li class="breadcrumb-item active" id="breadcrumb-product">Product</li>
+        </ol>
+      </nav>
+      <div id="productDetail"></div>
+
+      <!-- Similar Products -->
+      <div class="mt-5">
+        <h3 class="section-title">Similar Products</h3>
+        <div class="row g-3 mt-2" id="similarProducts"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== CART PAGE ======== -->
+  <div id="page-cart" class="page">
+    <div class="container-fluid px-4 py-4">
+      <h2 class="section-title mb-4"><i class="fas fa-shopping-cart me-2"></i>Shopping Cart</h2>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div id="cartItems"></div>
+        </div>
+        <div class="col-lg-4">
+          <div class="order-summary-card">
+            <h5 class="fw-bold mb-3">Order Summary</h5>
+            <div class="summary-row"><span>Items:</span><span id="summaryItems">0</span></div>
+            <div class="summary-row"><span>Subtotal:</span><span id="summarySubtotal">₹0</span></div>
+            <div class="summary-row"><span>Shipping:</span><span class="text-success">FREE</span></div>
+            <div class="summary-row"><span>Discount:</span><span class="text-danger" id="summaryDiscount">-₹0</span></div>
+            <hr/>
+            <div class="summary-row total-row"><span>Total:</span><span id="summaryTotal">₹0</span></div>
+            <button class="btn btn-checkout w-100 mt-3" onclick="showPage('checkout')">
+              Proceed to Checkout <i class="fas fa-arrow-right ms-2"></i>
+            </button>
+            <button class="btn btn-outline-secondary w-100 mt-2" onclick="showPage('home')">Continue Shopping</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== CHECKOUT PAGE ======== -->
+  <div id="page-checkout" class="page">
+    <div class="container px-4 py-4">
+      <h2 class="section-title mb-4"><i class="fas fa-lock me-2"></i>Secure Checkout</h2>
+
+      <!-- Steps -->
+      <div class="checkout-steps mb-4">
+        <div class="checkout-step active" id="step-indicator-1"><span>1</span> Address</div>
+        <div class="step-line"></div>
+        <div class="checkout-step" id="step-indicator-2"><span>2</span> Payment</div>
+        <div class="step-line"></div>
+        <div class="checkout-step" id="step-indicator-3"><span>3</span> Review</div>
+      </div>
+
+      <!-- Step 1: Address -->
+      <div id="checkout-step-1">
+        <div class="checkout-card">
+          <h5 class="fw-bold mb-4"><i class="fas fa-map-marker-alt me-2 text-accent"></i>Delivery Address</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-control" id="firstName" placeholder="Enter first name" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Last Name *</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Enter last name" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Mobile Number *</label>
+              <input type="tel" class="form-control" id="mobile" placeholder="+91 XXXXX XXXXX" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 1 *</label>
+              <input type="text" class="form-control" id="address1" placeholder="House No., Building, Street" />
+            </div>
+            <div class="col-12">
+              <label class="form-label">Address Line 2</label>
+              <input type="text" class="form-control" id="address2" placeholder="Area, Landmark (optional)" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">City *</label>
+              <input type="text" class="form-control" id="city" placeholder="City" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">State *</label>
+              <select class="form-select" id="state">
+                <option value="">Select State</option>
+                <option>Maharashtra</option>
+                <option>Delhi</option>
+                <option>Karnataka</option>
+                <option>Tamil Nadu</option>
+                <option>Gujarat</option>
+                <option>Rajasthan</option>
+                <option>West Bengal</option>
+                <option>Uttar Pradesh</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">PIN Code *</label>
+              <input type="text" class="form-control" id="pincode" placeholder="6-digit PIN" maxlength="6" />
+            </div>
+            <div class="col-12">
+              <label class="form-label mb-2">Address Type</label>
+              <div class="d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="addrType" id="home" value="Home" checked />
+                  <label class="form-check-label" for="home">Home</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="addrType" id="work" value="Work" />
+                  <label class="form-check-label" for="work">Work</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="addrType" id="other" value="Other" />
+                  <label class="form-check-label" for="other">Other</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-checkout mt-4" onclick="goToStep(2)">Continue to Payment <i class="fas fa-arrow-right ms-2"></i></button>
+        </div>
+      </div>
+
+      <!-- Step 2: Payment -->
+      <div id="checkout-step-2" class="d-none">
+        <div class="checkout-card">
+          <h5 class="fw-bold mb-4"><i class="fas fa-credit-card me-2 text-accent"></i>Payment Method</h5>
+          <div class="payment-options">
+            <div class="payment-option active" onclick="selectPayment(this,'upi')" id="pay-upi">
+              <div class="payment-radio"><i class="fas fa-circle-dot"></i></div>
+              <div class="payment-icon"><i class="fas fa-mobile-alt"></i></div>
+              <div>
+                <strong>UPI</strong>
+                <small class="d-block text-muted">GPay, PhonePe, Paytm, BHIM</small>
+              </div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this,'card')" id="pay-card">
+              <div class="payment-radio"><i class="far fa-circle"></i></div>
+              <div class="payment-icon"><i class="fas fa-credit-card"></i></div>
+              <div>
+                <strong>Credit / Debit Card</strong>
+                <small class="d-block text-muted">Visa, Mastercard, RuPay, Amex</small>
+              </div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this,'netbanking')" id="pay-net">
+              <div class="payment-radio"><i class="far fa-circle"></i></div>
+              <div class="payment-icon"><i class="fas fa-university"></i></div>
+              <div>
+                <strong>Net Banking</strong>
+                <small class="d-block text-muted">All major banks supported</small>
+              </div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this,'wallet')" id="pay-wallet">
+              <div class="payment-radio"><i class="far fa-circle"></i></div>
+              <div class="payment-icon"><i class="fas fa-wallet"></i></div>
+              <div>
+                <strong>Wallets</strong>
+                <small class="d-block text-muted">Paytm, Mobikwik, Freecharge</small>
+              </div>
+            </div>
+            <div class="payment-option" onclick="selectPayment(this,'cod')" id="pay-cod">
+              <div class="payment-radio"><i class="far fa-circle"></i></div>
+              <div class="payment-icon"><i class="fas fa-money-bill-wave"></i></div>
+              <div>
+                <strong>Cash on Delivery</strong>
+                <small class="d-block text-muted">Pay when your order arrives</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Fields -->
+          <div id="upi-fields" class="payment-fields mt-3">
+            <label class="form-label">UPI ID</label>
+            <input type="text" class="form-control" placeholder="yourname@upi" />
+            <div class="d-flex gap-2 mt-3 flex-wrap">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Paytm_Logo_%28standalone%29.svg/120px-Paytm_Logo_%28standalone%29.svg.png" height="30" alt="Paytm" class="payment-logo" />
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Google_Pay_Logo.svg/120px-Google_Pay_Logo.svg.png" height="30" alt="GPay" class="payment-logo" />
+            </div>
+          </div>
+
+          <!-- Card Fields -->
+          <div id="card-fields" class="payment-fields mt-3 d-none">
+            <div class="row g-3">
+              <div class="col-12"><label class="form-label">Card Number</label>
+                <input type="text" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19" /></div>
+              <div class="col-6"><label class="form-label">Expiry</label>
+                <input type="text" class="form-control" placeholder="MM / YY" maxlength="7" /></div>
+              <div class="col-6"><label class="form-label">CVV</label>
+                <input type="password" class="form-control" placeholder="•••" maxlength="3" /></div>
+              <div class="col-12"><label class="form-label">Name on Card</label>
+                <input type="text" class="form-control" placeholder="Full Name" /></div>
+            </div>
+          </div>
+
+          <!-- Net Banking Fields -->
+          <div id="net-fields" class="payment-fields mt-3 d-none">
+            <label class="form-label">Select Your Bank</label>
+            <select class="form-select">
+              <option>State Bank of India</option>
+              <option>HDFC Bank</option>
+              <option>ICICI Bank</option>
+              <option>Axis Bank</option>
+              <option>Kotak Mahindra Bank</option>
+              <option>Punjab National Bank</option>
+              <option>Bank of Baroda</option>
+            </select>
+          </div>
+
+          <!-- Wallet Fields -->
+          <div id="wallet-fields" class="payment-fields mt-3 d-none">
+            <label class="form-label">Select Wallet</label>
+            <div class="d-flex gap-3 flex-wrap">
+              <div class="wallet-chip active">Paytm</div>
+              <div class="wallet-chip">Mobikwik</div>
+              <div class="wallet-chip">Freecharge</div>
+              <div class="wallet-chip">Amazon Pay</div>
+            </div>
+          </div>
+
+          <!-- COD -->
+          <div id="cod-fields" class="payment-fields mt-3 d-none">
+            <div class="alert alert-info"><i class="fas fa-info-circle me-2"></i>You can pay in cash when your order is delivered. A small COD fee of ₹49 may apply.</div>
+          </div>
+
+          <div class="d-flex gap-3 mt-4">
+            <button class="btn btn-outline-secondary" onclick="goToStep(1)"><i class="fas fa-arrow-left me-2"></i>Back</button>
+            <button class="btn btn-checkout" onclick="goToStep(3)">Review Order <i class="fas fa-arrow-right ms-2"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3: Review -->
+      <div id="checkout-step-3" class="d-none">
+        <div class="checkout-card">
+          <h5 class="fw-bold mb-4"><i class="fas fa-clipboard-list me-2 text-accent"></i>Review Your Order</h5>
+          <div id="reviewContent"></div>
+          <div class="d-flex gap-3 mt-4 flex-wrap">
+            <button class="btn btn-outline-secondary" onclick="goToStep(2)"><i class="fas fa-arrow-left me-2"></i>Back</button>
+            <button class="btn btn-success flex-grow-1" onclick="placeOrder()"><i class="fas fa-check-circle me-2"></i>Place Order</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== ORDER SUCCESS PAGE ======== -->
+  <div id="page-success" class="page">
+    <div class="container py-5 text-center">
+      <div class="success-animation">
+        <div class="success-circle"><i class="fas fa-check"></i></div>
+      </div>
+      <h2 class="mt-4 fw-bold">Order Placed Successfully!</h2>
+      <p class="text-muted">Thank you for shopping with StepUp. Your order is confirmed.</p>
+      <div class="order-id-box mt-3">
+        Order ID: <strong id="orderId"></strong>
+      </div>
+      <p class="mt-3 text-muted">Estimated delivery: <strong>3-5 business days</strong></p>
+      <button class="btn btn-checkout mt-4 me-2" onclick="showPage('orders')">Track Order</button>
+      <button class="btn btn-outline-secondary mt-4" onclick="showPage('home')">Continue Shopping</button>
+    </div>
+  </div>
+
+  <!-- ======== ORDERS PAGE ======== -->
+  <div id="page-orders" class="page">
+    <div class="container-fluid px-4 py-4">
+      <h2 class="section-title mb-4"><i class="fas fa-box me-2"></i>My Orders</h2>
+      <div id="ordersList"></div>
+    </div>
+  </div>
+
+</main>
+
+<!-- TOAST -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+  <div id="cartToast" class="toast align-items-center text-white border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMsg">Added to cart!</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="container-fluid px-4">
+      <div class="row g-4">
+        <div class="col-12 col-md-3">
+          <div class="brand-logo footer-logo mb-3">
+            <span class="logo-icon"><i class="fas fa-shoe-prints"></i></span>
+            <span class="logo-text">Step<span>Up</span></span>
+          </div>
+          <p class="footer-desc">Premium footwear for every step of your journey. Quality you can feel from the ground up.</p>
+          <div class="social-links mt-3">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6 class="footer-heading">Get to Know Us</h6>
+          <ul class="footer-links">
+            <li><a href="#">About StepUp</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press Releases</a></li>
+            <li><a href="#">Investor Relations</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6 class="footer-heading">Customer Service</h6>
+          <ul class="footer-links">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="#">Returns & Exchange</a></li>
+            <li><a href="#">Size Guide</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2">
+          <h6 class="footer-heading">Policies</h6>
+          <ul class="footer-links">
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Refund Policy</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-3">
+          <h6 class="footer-heading">Newsletter</h6>
+          <p class="small text-muted">Subscribe for exclusive deals and new arrivals.</p>
+          <div class="input-group mt-2">
+            <input type="email" class="form-control" placeholder="Your email" />
+            <button class="btn btn-accent">Subscribe</button>
+          </div>
+          <div class="mt-3">
+            <h6 class="footer-heading">Download App</h6>
+            <div class="d-flex gap-2">
+              <div class="app-badge"><i class="fab fa-google-play me-1"></i>Google Play</div>
+              <div class="app-badge"><i class="fab fa-apple me-1"></i>App Store</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container-fluid px-4 d-flex flex-wrap justify-content-between align-items-center gap-2">
+      <p class="mb-0">&copy; 2025 StepUp Footwear. All rights reserved.</p>
+      <div class="payment-icons d-flex gap-2 align-items-center flex-wrap">
+        <span class="pay-icon"><i class="fab fa-cc-visa"></i></span>
+        <span class="pay-icon"><i class="fab fa-cc-mastercard"></i></span>
+        <span class="pay-icon"><i class="fab fa-cc-amex"></i></span>
+        <span class="pay-icon"><i class="fab fa-google-pay"></i></span>
+        <span class="pay-icon">UPI</span>
+        <span class="pay-icon">COD</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
